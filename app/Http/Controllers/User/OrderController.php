@@ -46,10 +46,10 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-//    public function update(Request $request, Order $order)
-//    {
-//        //
-//    }
+    public function update(Request $request, Order $order)
+    {
+        //
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -57,8 +57,8 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-//    public function destroy(Order $order)
-//    {
-//        //
-//    }
+    public function destroy(Order $order)
+    {
+        //
+    }
 }
