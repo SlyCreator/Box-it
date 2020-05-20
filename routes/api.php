@@ -19,7 +19,6 @@ use App\Http\Controllers\User\OrderController;
 
 Route::group(['prefix'=>'v1'],function (){
 
-
         Route::post('order',[OrderController::class,'store']);
         Route::get('track/{trackCode}',[OrderController::class,'track']);
         Route::post('complain',[OrderController::class,'complain']);
@@ -30,7 +29,7 @@ Route::group(['prefix'=>'v1'],function (){
         Route::group(['prefix'=>'Admin','middleware'=>'auth:api'],function (){
 
                 Route::group(['prefix'=>'Order'],function(){
-                        Route::get('/',[OrderController::class,'index']);
+    //                    Route::get('/',[OrderController::class,'index']);
     //                    Route::post('/',[OrderController::class,'store']);
                         Route::group(['prefix'=>'{OrderId}'],function (){
                             Route::get('/',[OrderController::class,'show']);
