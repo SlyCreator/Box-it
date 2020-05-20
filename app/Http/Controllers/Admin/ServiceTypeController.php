@@ -28,7 +28,7 @@ class ServiceTypeController extends Controller
     {
         $input = $request->all();
         ServiceType::create($input);
-        return response()->json(['message'=>'success',201]);
+        return response()->json(['message'=>'success']);
     }
 
     /**
@@ -39,7 +39,8 @@ class ServiceTypeController extends Controller
      */
     public function show($id)
     {
-        return ServiceType::findOrFail($id);
+        $serviceType = ServiceType::findOrFail($id);
+        return response()->json(['data'=>$serviceType]);
     }
 
     /**
@@ -51,7 +52,10 @@ class ServiceTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $serviceType = ServiceType::findOrFail($id);
+        $serviceType->update($request->all());
+        return response()->json(['message'=>'success']);
+
     }
 
     /**
@@ -62,6 +66,7 @@ class ServiceTypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ServiceType::findOrFail($id)->delete();
+        return response()->json(['message'=>'deleted successfully']);
     }
 }

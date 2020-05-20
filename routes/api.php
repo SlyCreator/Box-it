@@ -34,8 +34,8 @@ Route::group(['prefix'=>'v1'],function (){
                         Route::post('/',[ServiceTypeController::class,'store']);
                         Route::group(['prefix'=>'{serviceTypeId}'],function (){
                                 Route::get('/',[ServiceTypeController::class,'show']);
-                                Route::get('/',[ServiceTypeController::class,'update']);
-                                Route::get('/',[ServiceTypeController::class,'destroy']);
+                                Route::post('/',[ServiceTypeController::class,'update']);
+                                Route::delete('/',[ServiceTypeController::class,'destroy']);
                         });
                 });
                 Route::group(['prefix'=>'Invoice'],function(){
