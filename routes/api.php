@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ServiceTypeController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\User\OrderController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,20 +19,25 @@ use App\Http\Controllers\Admin\ServiceTypeController;
 
 Route::group(['prefix'=>'v1'],function (){
 
-        Route::group(['namespace'=>'Auth'],function (){
-                Route::post('/register','AuthController@register');
-                Route::post('/login','AuthController@login');
-        });
-        Route::group(['namespace' => 'User'],function(){
 
-        });
+        Route::post('order',[OrderController::class,'store']);
+        Route::get('track/{trackCode}',[OrderController::class,'track']);
+        Route::post('complain',[OrderController::class,'complain']);
+
+
+        Route::post('/register',[AuthController::class,'register']);
+        Route::post('/login',[AuthController::class,'login']);
         Route::group(['prefix'=>'Admin','middleware'=>'auth:api'],function (){
-                Route::post('order','OrderController@store');
-                Route::get('track/{trackCode}','OrderController@track');
-                Route::post('complain','OrderController@complain');
 
-
-
+                Route::group(['prefix'=>'Order'],function(){
+                        Route::get('/',[OrderController::class,'index']);
+    //                    Route::post('/',[OrderController::class,'store']);
+                        Route::group(['prefix'=>'{OrderId}'],function (){
+                            Route::get('/',[OrderController::class,'show']);
+                            Route::get('/',[OrderController::class,'update']);
+                            Route::get('/',[OrderController::class,'destroy']);
+                        });
+                });
                 Route::group(['prefix'=>'serviceType'],function(){
                         Route::get('/',[ServiceTypeController::class,'index']);
                         Route::post('/',[ServiceTypeController::class,'store']);
