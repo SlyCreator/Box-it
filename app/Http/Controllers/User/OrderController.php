@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\Order;
+use App\Models\Shipping;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 class OrderController extends Controller
 {
     /**
@@ -26,6 +28,12 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
+        $order = new Order;
+        $order->name    =   $request->name;
+        $order->email   =   $request->email;
+        $order->sent_from   =   $request->sent_from;
+        $order->service_type_id =   $request->serviceType_id;
+        return response()->json(['message' => 'Success']);
     }
 
     /**
@@ -42,13 +50,30 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Order $order
+     * @param $orderId
+     * @return void
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request,Order $order,$orderId)
     {
-        //
+        $order = Order::findOfFail();
+        DB::transaction(function ()use($order,$request,$orderId){
+            $order->weight_in_kg = $request->weight_in_kg;
+            $order->height_in_m  = $request->height_in_m;
+            $order->length_in_m  = $request->length_in_m;
+            $order->stadd_id     = $request->Auth::id;
+            $order->save;
+
+            $shipping   =   new Shipping;
+            $shipping->order_id = $order->id;
+            $shipping->state    =   $request->state;
+            $shipping->country  =   $request->country;
+            $shipping->address  =   $request->address;
+            $shipping->zipCode  =   $request->zipCode;
+            $shipping->save();
+        });
+        return response()->json(['message' => 'success']);
     }
 
     /**
