@@ -29,6 +29,8 @@ Route::group(['prefix'=>'v1'],function (){
                 Route::get('track/{trackCode}','OrderController@track');
                 Route::post('complain','OrderController@complain');
 
+
+
                 Route::group(['prefix'=>'serviceType'],function(){
                         Route::get('/',[ServiceTypeController::class,'index']);
                         Route::post('/',[ServiceTypeController::class,'store']);
