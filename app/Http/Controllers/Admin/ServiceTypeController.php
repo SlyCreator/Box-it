@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Order;
+use App\Http\Controllers\Controller;
+use App\Models\ServiceType;
 use Illuminate\Http\Request;
 
-class OrderController extends Controller
+class ServiceTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return ServiceType::all();
     }
 
     /**
@@ -25,40 +26,42 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-
+        $input = $request->all();
+        ServiceType::create($input);
+        return response()->json(['message'=>'success',201]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Order  $order
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show($id)
     {
-        //
+        return ServiceType::findOrFail($id);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Order  $order
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-//    public function update(Request $request, Order $order)
-//    {
-//        //
-//    }
+    public function update(Request $request, $id)
+    {
+        //
+    }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Order  $order
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-//    public function destroy(Order $order)
-//    {
-//        //
-//    }
+    public function destroy($id)
+    {
+        //
+    }
 }
