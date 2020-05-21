@@ -38,7 +38,7 @@ Route::group(['prefix'=>'v1'],function (){
                         });
                 });
                 Route::group(['prefix'=>'serviceType'],function(){
-                        Route::get('/',[ServiceTypeController::class,'index']);
+                        Route::get('/',[ServiceTypeController::class,'index'])->withoutMiddleware('auth:api');
                         Route::post('/',[ServiceTypeController::class,'store']);
                         Route::group(['prefix'=>'{serviceTypeId}'],function (){
                                 Route::get('/',[ServiceTypeController::class,'show']);
