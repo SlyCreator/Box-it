@@ -26,14 +26,15 @@ Route::group(['prefix'=>'v1'],function (){
 
         Route::post('/register',[AuthController::class,'register']);
         Route::post('/login',[AuthController::class,'login']);
+
         Route::group(['prefix'=>'Admin','middleware'=>'auth:api'],function (){
 
-                Route::group(['prefix'=>'Order'],function(){
-    //                    Route::get('/',[OrderController::class,'index']);
-    //                    Route::post('/',[OrderController::class,'store']);
+                Route::group(['prefix'=>'order'],function(){
+                        Route::get('/',[OrderController::class,'index']);
+                        Route::post('/',[OrderController::class,'store']);
                         Route::group(['prefix'=>'{OrderId}'],function (){
                             Route::get('/',[OrderController::class,'show']);
-                            Route::get('/',[OrderController::class,'update']);
+                            Route::post('/',[OrderController::class,'update']);
                             Route::get('/',[OrderController::class,'destroy']);
                         });
                 });
