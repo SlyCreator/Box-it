@@ -20,7 +20,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::paginate(10);
+        $order = Order::with('shipping')->paginate(10);
         return response()->json(['data' => $order]);
     }
 
@@ -66,7 +66,6 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($orderId);
         DB::transaction(function ()use($order,$request,$orderId){
-//            dd($request->all());
             $order->weight_in_kg = $request->weight_in_kg;
             $order->height_in_m  = $request->height_in_m;
             $order->length_in_m  = $request->length_in_m;
@@ -80,7 +79,6 @@ class OrderController extends Controller
             $shipping->address  =   $request->address;
             $shipping->zipCode  =   $request->zipCode;
             $shipping->save();
-            dd($order);
         });
 
         return response()->json(['message' => 'success']);
