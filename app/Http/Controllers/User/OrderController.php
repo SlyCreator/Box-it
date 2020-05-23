@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use DB;
-
+use Illuminate\Support\Str;
 class OrderController extends Controller
 {
 
@@ -36,6 +36,7 @@ class OrderController extends Controller
         $order->email   =   $request->email;
         $order->sent_from   =   $request->sent_from;
         $order->service_type_id =   $request->serviceType_id;
+        $order->tracking_code   =   Str::random();
         $order->save();
         return response()->json(['message' => 'Success']);
     }
