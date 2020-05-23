@@ -47,10 +47,9 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show($orderId)
+    public function show()
     {
-       // $order = Order::findOrFail($orderId);
-        $order = Order::all();
+        $order = Order::findOrFail($orderId);
         return response()->json(['data'=>$order]);
     }
 
