@@ -6,9 +6,8 @@ use App\Models\Order;
 use App\Models\Shipping;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use Auth;
+
 
 class OrderController extends Controller
 {
