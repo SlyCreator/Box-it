@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ServiceTypeController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\OrderController;
+use App\Http\Controllers\Admin\InvoiceController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,8 +35,8 @@ Route::group(['prefix'=>'v1'],function (){
     //                    Route::post('/',[OrderController::class,'store']);
                         Route::group(['prefix'=>'{OrderId}'],function (){
                             Route::get('/',[OrderController::class,'show']);
-                            Route::get('/',[OrderController::class,'update']);
-                            Route::get('/',[OrderController::class,'destroy']);
+                            Route::post('/',[OrderController::class,'update']);
+                            Route::delete('/',[OrderController::class,'destroy']);
                         });
                 });
                 Route::group(['prefix'=>'serviceType'],function(){
@@ -43,8 +44,8 @@ Route::group(['prefix'=>'v1'],function (){
                         Route::post('/',[ServiceTypeController::class,'store']);
                         Route::group(['prefix'=>'{serviceTypeId}'],function (){
                                 Route::get('/',[ServiceTypeController::class,'show']);
-                                Route::get('/',[ServiceTypeController::class,'update']);
-                                Route::get('/',[ServiceTypeController::class,'destroy']);
+                                Route::post('/',[ServiceTypeController::class,'update']);
+                                Route::delete('/',[ServiceTypeController::class,'destroy']);
                         });
                 });
                 Route::group(['prefix'=>'Invoice'],function(){
