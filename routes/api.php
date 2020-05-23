@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ServiceTypeController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\OrderController;
+use App\Http\Controllers\Admin\InvoiceController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -35,8 +36,8 @@ Route::group(['prefix'=>'v1'],function (){
                         Route::group(['prefix'=>'{OrderId}'],function (){
                             Route::get('/',[OrderController::class,'show']);
                             Route::post('/',[OrderController::class,'update']);
-                            Route::get('/',[OrderController::class,'destroy']);
-                        });
+                            Route::delete('/',[OrderController::class,'destroy']);
+                      });
                 });
                 Route::group(['prefix'=>'serviceType'],function(){
                         Route::get('/',[ServiceTypeController::class,'index'])->withoutMiddleware('auth:api');
