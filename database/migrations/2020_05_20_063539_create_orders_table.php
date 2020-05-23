@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
-            $table->string('sentFrom');
+            $table->string('sent_from');
             $table->string('weight_in_kg')->default('0');
             $table->string('height_in_m')->default('0');
             $table->string('length_in_m')->default('0');
@@ -26,8 +26,8 @@ class CreateOrdersTable extends Migration
             $table->foreign('service_type_id')->references('id')
                 ->on('service_types')->onDelete('cascade');
 
-            $table->unsignedBigInteger('staff_id')->default(0);
-            $table->foreign('staff_id')->references('id')
+            $table->unsignedBigInteger('user_id')->default(1);
+            $table->foreign('user_id')->references('id')
                 ->on('users')->onDelete('cascade');
 
             $table->timestamps();

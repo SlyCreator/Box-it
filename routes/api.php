@@ -20,7 +20,6 @@ use App\Http\Controllers\Admin\InvoiceController;
 
 Route::group(['prefix'=>'v1'],function (){
 
-
         Route::post('order',[OrderController::class,'store']);
         Route::get('track/{trackCode}',[OrderController::class,'track']);
         Route::post('complain',[OrderController::class,'complain']);
@@ -28,19 +27,20 @@ Route::group(['prefix'=>'v1'],function (){
 
         Route::post('/register',[AuthController::class,'register']);
         Route::post('/login',[AuthController::class,'login']);
+
         Route::group(['prefix'=>'Admin','middleware'=>'auth:api'],function (){
 
-                Route::group(['prefix'=>'Order'],function(){
+                Route::group(['prefix'=>'order'],function(){
                         Route::get('/',[OrderController::class,'index']);
-    //                    Route::post('/',[OrderController::class,'store']);
+                        Route::post('/',[OrderController::class,'store']);
                         Route::group(['prefix'=>'{OrderId}'],function (){
                             Route::get('/',[OrderController::class,'show']);
                             Route::post('/',[OrderController::class,'update']);
                             Route::delete('/',[OrderController::class,'destroy']);
-                        });
+                      });
                 });
                 Route::group(['prefix'=>'serviceType'],function(){
-                        Route::get('/',[ServiceTypeController::class,'index']);
+                        Route::get('/',[ServiceTypeController::class,'index'])->withoutMiddleware('auth:api');
                         Route::post('/',[ServiceTypeController::class,'store']);
                         Route::group(['prefix'=>'{serviceTypeId}'],function (){
                                 Route::get('/',[ServiceTypeController::class,'show']);
