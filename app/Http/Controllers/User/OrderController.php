@@ -7,7 +7,7 @@ use App\Models\Shipping;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-
+use DB;
 
 class OrderController extends Controller
 {
@@ -67,7 +67,7 @@ class OrderController extends Controller
             $order->weight_in_kg = $request->weight_in_kg;
             $order->height_in_m  = $request->height_in_m;
             $order->length_in_m  = $request->length_in_m;
-            $order->user_id    = $request->user()->id;
+            $order->staff_id    = $request->user()->id;
             $order->save();
 
             $shipping   =   new Shipping;
