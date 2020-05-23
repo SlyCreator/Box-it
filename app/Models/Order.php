@@ -9,7 +9,7 @@ class Order extends Model
 {
     protected $fillable = ['name','email','sent_from',
                 'weight_in_kg', 'height_in_m','length_in_m',
-                'service_type_id','user_id'];
+                'service_type_id','staff_id'];
 
     public function shipping()
     {

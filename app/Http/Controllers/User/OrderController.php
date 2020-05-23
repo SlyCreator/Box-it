@@ -48,8 +48,7 @@ class OrderController extends Controller
      */
     public function show($orderId)
     {
-       // $order = Order::findOrFail($orderId);
-        $order = Order::all();
+        $order = Order::findOrFail($orderId);
         return response()->json(['data'=>$order]);
     }
 

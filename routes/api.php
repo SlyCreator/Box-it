@@ -62,12 +62,12 @@ Route::group(['prefix'=>'v1'],function (){
 
 /**
 **
-*1)user can track order
- * 2)user can order for service
+*1)user can track order  .....G
+ * 2)user can order for service........B =====> done
  * 3)user can file a complain
- * 4)Admin can complete the invoice filing by adding weight
- * 5)Admin can make as paid
- * 6)Admin can Crud package location update
- * 7)Admin can make Package or order as delivered
- * 8)Admin can crud serviceType
+ * 4)Admin can complete the invoice filing by adding weight ....C ... D
+ * 5)Admin can make as paid ....E
+ * 6)Admin can Crud package location update .....F
+ * 7)Admin can make Package or order as delivered  ....H
+ * 8)Admin can crud serviceType ......A....=======> done
 */
