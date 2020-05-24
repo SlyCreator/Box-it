@@ -25,4 +25,9 @@ class Order extends Model
     {
         return $this->belongsTo(ServiceType::class);
     }
+
+    public function package()
+    {
+        return $this->belongsTo(Package::class);
+    }
 }
