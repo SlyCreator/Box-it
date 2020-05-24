@@ -15,6 +15,7 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+
             $table->bigInteger('ref_code');
 
             $table->unsignedBigInteger('order_id');
@@ -23,6 +24,7 @@ class CreateInvoicesTable extends Migration
 
             $table->string('amount');
 
+            $table->string('is_paid')->default(0);
             $table->timestamps();
         });
     }

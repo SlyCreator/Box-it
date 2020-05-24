@@ -17,7 +17,7 @@ class CreateServiceTypesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->string('amount');
+            $table->string('amount_per_kg');
             $table->timestamps();
         });
     }
