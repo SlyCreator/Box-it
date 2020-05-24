@@ -48,13 +48,14 @@ Route::group(['prefix'=>'v1'],function (){
                                 Route::delete('/',[ServiceTypeController::class,'destroy']);
                         });
                 });
-                Route::group(['prefix'=>'Invoice'],function(){
-                    Route::get('/',[InvoiceController::class,'index']);
-                    Route::post('/',[InvoiceController::class,'store']);
+                Route::group(['prefix'=>'invoice'],function(){
+                    Route::get('/',[InvoiceController::class,'fetchAll']);
+                    Route::post('/',[InvoiceController::class,'generateInvoice']);
                     Route::group(['prefix'=>'{invoiceId}'],function (){
+                        Route::post('/paid',[InvoiceController::class,'markAsPaid']);
                         Route::get('/',[InvoiceController::class,'show']);
                         Route::get('/',[InvoiceController::class,'update']);
-                        Route::get('/',[InvoiceController::class,'destroy']);
+                        Route::delete('/',[InvoiceController::class,'destroy']);
                     });
                 });
         });
@@ -65,7 +66,7 @@ Route::group(['prefix'=>'v1'],function (){
 *1)user can track order  .....G
  * 2)user can order for service........B =====> done
  * 3)user can file a complain
- * 4)Admin can complete the invoice filing by adding weight ....C ... D
+ * 4)Admin can complete the invoice filing by adding weight ....C ... D ==>done ==>done
  * 5)Admin can make as paid ....E
  * 6)Admin can Crud package location update .....F
  * 7)Admin can make Package or order as delivered  ....H
