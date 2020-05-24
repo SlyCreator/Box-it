@@ -20,4 +20,9 @@ class Order extends Model
     {
         return $this->hasOne(Invoice::class);
     }
+
+    public function serviceType()
+    {
+        return $this->belongsTo(ServiceType::class);
+    }
 }
