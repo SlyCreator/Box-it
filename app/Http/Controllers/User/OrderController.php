@@ -89,8 +89,9 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy($orderId)
     {
-
+        Order::findOrFail($orderId)->delete();
+        return response()->json(['message'=>'success']);
     }
 }
