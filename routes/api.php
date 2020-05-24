@@ -65,6 +65,7 @@ Route::group(['prefix'=>'v1'],function (){
                 Route::post('/',[PackageController::class,'AddLocation']);
                 Route::group(['prefix'=>'{packageId}'],function (){
                     Route::get('/',[PackageController::class,'show']);
+                    Route::post('/',[PackageController::class,'updateLocation']);
                     Route::delete('/',[PackageController::class,'destroy']);
                 });
             });
@@ -73,12 +74,12 @@ Route::group(['prefix'=>'v1'],function (){
 
 /**
 **
-*1)user can track order  .....G
+*1)user can track order  .....G ===> done
  * 2)user can order for service........B =====> done
  * 3)user can file a complain
  * 4)Admin can complete the invoice filing by adding weight ....C ... D ==> done ==> done
  * 5)Admin can make as paid ....E ==> done
- * 6)Admin can Crud package location update .....F
+ * 6)Admin can Crud package location update .....F  =====>done
  * 7)Admin can make Package or order as delivered  ....H
  * 8)Admin can crud serviceType ......A....=======> done
 */

@@ -16,8 +16,8 @@ class CreatePackagesTable extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
 
-            $table->string('tracking_code');
-            $table->foreign('tracking_code')->references('tracking_code')
+            $table->unsignedBigInteger('order_id');
+            $table->foreign('order_id')->references('id')
                 ->on('orders')->onDelete('cascade');
 
             $table->string('arrival')->nullable();

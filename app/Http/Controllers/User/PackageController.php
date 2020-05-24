@@ -28,7 +28,7 @@ class PackageController extends Controller
      */
     public function track($trackCode)
     {
-        $order    =   Order::where('tracking_code',$trackCode);
+        $order    =   Order::where('tracking_code',$trackCode)->first();
         $package    =   Package::where('order_id',$order->id)->get();
         return response()->json(['data' => $package]);
     }
@@ -42,7 +42,7 @@ class PackageController extends Controller
     public function AddLocation(Request $request)
     {
         $package = new Package();
-        $package->tracking_code =$request->tracking_code ;
+        $package->order_id =$request->order_id ;
 
         if($request->arrival){
             $package->arrival = $request->arrival;
@@ -75,9 +75,19 @@ class PackageController extends Controller
      * @param  \App\Models\Package  $package
      * @return \Illuminate\Http\Response
      */
-    public function updateLocation(Request $request, Package $package)
+    public function updateLocation(Request $request,$packageId)
     {
-        //
+        $package = Package::findOrFail($packageId);
+        if($request->arrival){
+            $package->arrival = $request->arrival;
+            $package->arrival_at    =   Carbon::now();
+        }
+        if($request->departure){
+            $package->departure   =   $request->departure;
+            $package->departure_at =     Carbon::now();
+        }
+        $package->save();
+        return response()->json(['message' => 'succcess']);
     }
 
     /**
@@ -86,8 +96,9 @@ class PackageController extends Controller
      * @param  \App\Models\Package  $package
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Package $package)
+    public function destroy($packageId)
     {
-        //
+        Package::findOrFail($packageId)->delete();
+        return response()->json(['message' => 'success']);
     }
 }
