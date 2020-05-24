@@ -69,6 +69,18 @@ class PackageController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param $packageId
+     * @return void
+     */
+    public function isDelivered($packageId)
+    {
+        $package    =   Package::findOrFail($packageId)->update(['is_delivered' => true]);
+        return response()->json(['message' => 'success']);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

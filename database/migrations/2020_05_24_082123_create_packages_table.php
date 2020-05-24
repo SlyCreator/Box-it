@@ -25,6 +25,8 @@ class CreatePackagesTable extends Migration
 
             $table->string('departure')->nullable();
             $table->string('departure_at')->nullable();
+
+            $table->string('is_delivered')->default(0);
             $table->timestamps();
         });
     }

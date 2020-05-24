@@ -25,6 +25,7 @@ class CreateInvoicesTable extends Migration
             $table->string('amount');
 
             $table->string('is_paid')->default(0);
+
             $table->timestamps();
         });
     }
