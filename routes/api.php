@@ -22,7 +22,7 @@ use App\Http\Controllers\Admin\InvoiceController;
 Route::group(['prefix'=>'v1'],function (){
 
         Route::post('order',[OrderController::class,'store']);
-        Route::get('track/{trackCode}',[OrderController::class,'track']);
+        Route::get('track/{trackCode}',[PackageController::class,'track']);
         Route::post('complain',[OrderController::class,'complain']);
 
 
@@ -62,11 +62,9 @@ Route::group(['prefix'=>'v1'],function (){
 
             Route::group(['prefix'=>'package'],function(){
                 Route::get('/',[PackageController::class,'fetchAll']);
-                Route::post('/',[PackageController::class,'generateInvoice']);
-                Route::group(['prefix'=>'{invoiceId}'],function (){
-                    Route::post('/paid',[PackageController::class,'markAsPaid']);
-//                        Route::get('/',[PackageController::class,'show']);
-//                        Route::get('/',[PackageController::class,'update']);
+                Route::post('/',[PackageController::class,'AddLocation']);
+                Route::group(['prefix'=>'{packageId}'],function (){
+                    Route::get('/',[PackageController::class,'show']);
                     Route::delete('/',[PackageController::class,'destroy']);
                 });
             });
