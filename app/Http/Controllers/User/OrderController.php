@@ -49,7 +49,7 @@ class OrderController extends Controller
      */
     public function show($orderId)
     {
-        $order = Order::findOrFail($orderId);
+        $order = Order::with('shipping')->findOrFail($orderId);
         return response()->json(['data'=>$order]);
     }
 
@@ -91,6 +91,6 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+
     }
 }
