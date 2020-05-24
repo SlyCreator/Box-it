@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\Order;
 use App\Models\Package;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class PackageController extends Controller
 {
@@ -13,9 +15,22 @@ class PackageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function fetchAll()
     {
-        //
+        return Package::orderBy('id', 'DESC')->paginate(10);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param $packageId
+     * @return void
+     */
+    public function track($trackCode)
+    {
+        $order    =   Order::where('tracking_code',$trackCode);
+        $package    =   Package::where('order_id',$order->id)->get();
+        return response()->json(['data' => $package]);
     }
 
     /**
@@ -24,20 +39,33 @@ class PackageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function AddLocation(Request $request)
     {
-        //
+        $package = new Package();
+        $package->tracking_code =$request->tracking_code ;
+
+        if($request->arrival){
+            $package->arrival = $request->arrival;
+            $package->arrival_at    =   Carbon::now();
+        }
+        if($request->departure){
+            $package->departure   =   $request->departure;
+            $package->departure_at =     Carbon::now();
+        }
+        $package->save();
+        return response()->json(['message' => 'success']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Package  $package
-     * @return \Illuminate\Http\Response
+     * @param $packageId
+     * @return void
      */
-    public function show(Package $package)
+    public function show($packageId)
     {
-        //
+        $package    =   Package::findOrFail($packageId);
+        return response()->json(['data'=>$package]);
     }
 
     /**
@@ -47,7 +75,7 @@ class PackageController extends Controller
      * @param  \App\Models\Package  $package
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Package $package)
+    public function updateLocation(Request $request, Package $package)
     {
         //
     }
