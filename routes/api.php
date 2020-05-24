@@ -53,8 +53,8 @@ Route::group(['prefix'=>'v1'],function (){
                     Route::post('/',[InvoiceController::class,'generateInvoice']);
                     Route::group(['prefix'=>'{invoiceId}'],function (){
                         Route::post('/paid',[InvoiceController::class,'markAsPaid']);
-                        Route::get('/',[InvoiceController::class,'show']);
-                        Route::get('/',[InvoiceController::class,'update']);
+//                        Route::get('/',[InvoiceController::class,'show']);
+//                        Route::get('/',[InvoiceController::class,'update']);
                         Route::delete('/',[InvoiceController::class,'destroy']);
                     });
                 });
