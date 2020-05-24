@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ServiceTypeController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\OrderController;
+use App\Http\Controllers\User\PackageController;
 use App\Http\Controllers\Admin\InvoiceController;
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,17 @@ Route::group(['prefix'=>'v1'],function (){
                         Route::delete('/',[InvoiceController::class,'destroy']);
                     });
                 });
+
+            Route::group(['prefix'=>'package'],function(){
+                Route::get('/',[PackageController::class,'fetchAll']);
+                Route::post('/',[PackageController::class,'generateInvoice']);
+                Route::group(['prefix'=>'{invoiceId}'],function (){
+                    Route::post('/paid',[PackageController::class,'markAsPaid']);
+//                        Route::get('/',[PackageController::class,'show']);
+//                        Route::get('/',[PackageController::class,'update']);
+                    Route::delete('/',[PackageController::class,'destroy']);
+                });
+            });
         });
 });
 
@@ -66,8 +78,8 @@ Route::group(['prefix'=>'v1'],function (){
 *1)user can track order  .....G
  * 2)user can order for service........B =====> done
  * 3)user can file a complain
- * 4)Admin can complete the invoice filing by adding weight ....C ... D ==>done ==>done
- * 5)Admin can make as paid ....E
+ * 4)Admin can complete the invoice filing by adding weight ....C ... D ==> done ==> done
+ * 5)Admin can make as paid ....E ==> done
  * 6)Admin can Crud package location update .....F
  * 7)Admin can make Package or order as delivered  ....H
  * 8)Admin can crud serviceType ......A....=======> done
