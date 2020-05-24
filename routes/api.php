@@ -65,6 +65,7 @@ Route::group(['prefix'=>'v1'],function (){
                 Route::post('/',[PackageController::class,'AddLocation']);
                 Route::group(['prefix'=>'{packageId}'],function (){
                     Route::get('/',[PackageController::class,'show']);
+                    Route::post('/markDelivered',[PackageController::class,'isDelivered']);
                     Route::post('/',[PackageController::class,'updateLocation']);
                     Route::delete('/',[PackageController::class,'destroy']);
                 });
