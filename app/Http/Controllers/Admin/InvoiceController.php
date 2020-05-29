@@ -21,6 +21,7 @@ class InvoiceController extends Controller
     public function generateInvoice(Request $request)
     {
         $order  =   Order::findOrFail($request->order_id);
+
         Invoice::create([
             'ref_code' => "Sh".str_random(4).$request->user()->id.str_random(4).$order->id,
             'order_id' => $order->id,
